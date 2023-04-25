@@ -28,17 +28,17 @@ public class Patient {
     private String phoneNumber;
 
     @Column(name = "SSN")
-    private String SSN;
+    private String ssn;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
 
-    public Patient(Long id, String firstname, String lastname, String phoneNumber, String SSN, List<Appointment> appointments) {
+    public Patient(Long id, String firstname, String lastname, String phoneNumber, String ssn, List<Appointment> appointments) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.phoneNumber = phoneNumber;
-        this.SSN = SSN;
+        this.ssn = ssn;
         this.appointments = appointments;
     }
 }
