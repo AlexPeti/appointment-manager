@@ -18,9 +18,11 @@ public class Appointment {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "DOCTOR_ID", nullable = false, unique = true)
     private Doctor doctor;
 
     @ManyToOne
+    @JoinColumn(name = "PATIENT_ID", nullable = false, unique = true)
     private Patient patient;
 
     @Column(name = "DATE")
