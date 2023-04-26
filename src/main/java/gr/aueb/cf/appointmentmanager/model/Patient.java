@@ -21,10 +21,10 @@ public class Patient {
     @Column(name = "FIRSTNAME" ,nullable = false)
     private String firstname;
 
-    @Column(name = "FIRSTNAME" ,nullable = false)
+    @Column(name = "LASTNAME" ,nullable = false)
     private String lastname;
 
-    @Column(name = "PHONE_NUMBER" ,nullable = false)
+    @Column(name = "PHONENUMBER" ,nullable = false)
     private String phoneNumber;
 
     @Column(name = "SSN" ,nullable = false)

@@ -13,5 +13,5 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     List<Doctor> findByOrderByLastnameAsc();
 
-    List<Appointment> findAppointmentsByDoctorId(Long doctorId);
+//    List<Appointment> findAppointmentsByDoctorId(Long id);
 }

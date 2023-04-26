@@ -12,9 +12,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     void deleteAppointmentById(Long id);
 
-    Appointment saveAppointment(Appointment appointment);
-
-    List<Appointment> findByDoctorIdOrderByDateAsc(Long doctorId);
-
-    Optional<Appointment> findByIdAndDoctorId(Long appointmentId, Long doctorId);
+//    List<Appointment> findByDoctorIdOrderByDateAsc(Long id);
+//
+//    Optional<Appointment> findByIdAndDoctorId(Long appointmentId, Long id);
 }
