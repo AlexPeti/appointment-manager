@@ -18,10 +18,10 @@ public class Doctor {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "FIRSTNAME")
+    @Column(name = "FIRSTNAME" ,nullable = false)
     private String firstname;
 
-    @Column(name = "LASTNAME")
+    @Column(name = "LASTNAME" ,nullable = false)
     private String lastname;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)

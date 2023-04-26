@@ -18,16 +18,16 @@ public class Patient {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "FIRSTNAME")
+    @Column(name = "FIRSTNAME" ,nullable = false)
     private String firstname;
 
-    @Column(name = "FIRSTNAME")
+    @Column(name = "FIRSTNAME" ,nullable = false)
     private String lastname;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "PHONE_NUMBER" ,nullable = false)
     private String phoneNumber;
 
-    @Column(name = "SSN")
+    @Column(name = "SSN" ,nullable = false)
     private String ssn;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)

@@ -25,7 +25,7 @@ public class Appointment {
     @JoinColumn(name = "PATIENT_ID", nullable = false, unique = true)
     private Patient patient;
 
-    @Column(name = "DATE")
+    @Column(name = "DATE" ,nullable = false)
     private LocalDateTime appointmentDateTime;
 
     public Appointment(Long id, Doctor doctor, Patient patient, LocalDateTime appointmentDateTime) {
