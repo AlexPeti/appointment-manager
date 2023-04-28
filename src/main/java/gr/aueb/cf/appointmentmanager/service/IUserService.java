@@ -5,7 +5,6 @@ import gr.aueb.cf.appointmentmanager.model.User;
 import gr.aueb.cf.appointmentmanager.service.exceptions.EntityNotFoundException;
 
 public interface IUserService {
-
     User registerUser(UserDTO userToRegister);
     User updateUser(UserDTO userDTO) throws EntityNotFoundException;
     void deleteUser(Long id) throws EntityNotFoundException;

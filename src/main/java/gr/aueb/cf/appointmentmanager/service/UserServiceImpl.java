@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements IUserService {
 
@@ -20,12 +22,14 @@ public class UserServiceImpl implements IUserService {
         this.modelMapper = modelMapper;
     }
 
+    @Transactional
     @Override
     public User registerUser(UserDTO userToRegister) {
         User user = modelMapper.map(userToRegister, User.class);
         return userRepository.save(user);
     }
 
+    @Transactional
     @Override
     public User updateUser(UserDTO userDTO) throws EntityNotFoundException {
         User user = userRepository.findUserById(userDTO.getId());
@@ -37,6 +41,7 @@ public class UserServiceImpl implements IUserService {
         return userRepository.save(user);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long id) throws EntityNotFoundException {
         User user = userRepository.findUserById(id);
@@ -44,7 +49,6 @@ public class UserServiceImpl implements IUserService {
         if (user == null) {
             throw new EntityNotFoundException(User.class,id);
         }
-
         userRepository.delete(user);
     }
 
