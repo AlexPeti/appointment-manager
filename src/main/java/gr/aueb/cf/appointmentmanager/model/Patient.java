@@ -41,4 +41,16 @@ public class Patient {
         this.ssn = ssn;
         this.appointments = appointments;
     }
+
+    // Adds an appointment to the patient's list of appointments
+    public void addAppointment(Appointment appointment) {
+        this.appointments.add(appointment);
+        appointment.setPatient(this);
+    }
+
+    // Removes an appointment from the patient's list of appointments
+    public void removeAppointment(Appointment appointment) {
+        this.appointments.remove(appointment);
+        appointment.setPatient(null);
+    }
 }

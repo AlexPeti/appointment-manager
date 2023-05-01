@@ -32,4 +32,16 @@ public class Doctor {
         this.firstname = firstname;
         this.lastname = lastname;
     }
+
+    // Adds an appointment to the doctor's list of appointments
+    public void addAppointment(Appointment appointment) {
+        this.appointments.add(appointment);
+        appointment.setDoctor(this);
+    }
+
+    // Removes an appointment from the doctor's list of appointments
+    public void removeAppointment(Appointment appointment) {
+        this.appointments.remove(appointment);
+        appointment.setDoctor(null);
+    }
 }

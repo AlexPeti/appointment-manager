@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,12 +18,14 @@ public class Appointment {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "DOCTOR_ID", nullable = false, unique = true)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "DOCTOR_ID", nullable = false)
+    @NotNull
     private Doctor doctor;
 
-    @ManyToOne
-    @JoinColumn(name = "PATIENT_ID", nullable = false, unique = true)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "PATIENT_ID", nullable = false)
+    @NotNull
     private Patient patient;
 
     @Column(name = "DATE" ,nullable = false)
@@ -34,4 +37,17 @@ public class Appointment {
         this.patient = patient;
         this.appointmentDateTime = appointmentDateTime;
     }
+
+    public void removeDoctor() {
+        if (doctor != null) {
+            doctor.removeAppointment(this);
+        }
+    }
+
+    public void removePatient() {
+        if (patient != null) {
+            patient.removeAppointment(this);
+        }
+    }
+
 }
