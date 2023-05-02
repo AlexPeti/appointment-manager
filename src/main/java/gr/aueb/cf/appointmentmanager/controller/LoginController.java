@@ -18,11 +18,12 @@ public class LoginController {
         request.getSession().setAttribute(CustomAuthenticationSuccessHandler.REDIRECT_URL_SESSION_ATTRIBUTE_NAME,
                 referer);
 
-        return principal == null ? "login" : "redirect:/api/dashboard";
+        return principal == null ? "login" : "dashboard";
     }
 
     @GetMapping(path = "/")
     String root(Model model, Principal principal, HttpServletRequest request) throws Exception {
-        return principal == null ? "login" : "redirect:/api/dashboard";
+//        return principal == null ? "login" : "redirect:/login";
+        return principal == null ? "login" : "dashboard";
     }
 }

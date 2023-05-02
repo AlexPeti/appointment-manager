@@ -34,18 +34,14 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeRequests().antMatchers("/login").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/api/dashboard").authenticated()
+                .authorizeRequests().antMatchers("/dashboard").authenticated()
                 .anyRequest().authenticated().and().formLogin()
-                .loginPage("/login").defaultSuccessUrl("/api/dashboard").permitAll()
+                .loginPage("/login").defaultSuccessUrl("/dashboard").permitAll()
                 .and().httpBasic()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
 
         return http.build();
-        // mporeis kai mia mia na dwseis ta permit stis selides opws apo katw
-//                .authorizeRequests().antMatchers(HttpMethod.POST,"/api/teachers").permitAll()
-//                .and()
-//                .authorizeRequests().antMatchers(HttpMethod.GET, "/API/TEACHERS").permitAll()
     }
 
     @Bean
