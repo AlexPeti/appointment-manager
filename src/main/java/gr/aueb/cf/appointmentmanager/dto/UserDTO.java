@@ -14,9 +14,13 @@ public class UserDTO {
 
     private String username;
 
-    @Size(min = 8, message = "Password must have at least ${min} characters")
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\d).*$")
+    @Size(min = 3, message = "Password must have at least ${min} characters")
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\d).*$",
+            message = "Password must contain at least one uppercase letter, one lowercase letter, and one digit")
+
     private String password;
+
+    private String confirmPassword;
 
     public UserDTO(Long id, String username, String password) {
         this.id = id;

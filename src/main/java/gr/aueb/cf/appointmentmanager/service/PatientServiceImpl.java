@@ -56,12 +56,12 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     public Patient getPatientByFullname(String firstname, String lastname) throws EntityNotFoundException {
-        Optional<Patient> patient = patientRepository.findByFirstnameAndLastname(firstname,lastname);
+        Patient patient = patientRepository.findByFirstnameAndLastname(firstname,lastname);
 
-        if (patient.isEmpty()) {
+        if (patient == null) {
             throw new EntityNotFoundException(Patient.class,null);
         }
-        return patient.get();
+        return patient;
     }
 
     @Override

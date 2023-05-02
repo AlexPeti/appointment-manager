@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="" xmlns:th="http://www.thymeleaf.org">
 <head>
   <link rel="stylesheet" href="/styles/login.css">
   <title>Log in</title>
@@ -14,13 +14,13 @@
           <span><b>User log-in</b></span>
         </div>
         <div  class="gap-bottom">
-          <input id="email" class="form-input account" type="text" placeholder="email" value="" name="username" autofocus>
+          <input id="email" class="form-input account" type="text" placeholder="username" value="" name="username" autofocus>
         </div>
         <div class="gap-bottom">
           <input id="password" class="form-input password" type="password" placeholder="password" value="" name="password">
         </div>
         <div class="gap-bottom">
-          <input type="submit" class="form-btn" value="Σύνδεση">
+          <input type="submit" class="form-btn" value="Log-in">
         </div>
         <div class="gap-bottom">
           <span>Don't have an account? Create one </span><a href="/register">here</a>
