@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IAppointmentService {
-    Appointment createAppointment(DoctorDTO doctorDTO, String firstname, String lastname, String phonenumber,
+    Appointment createAppointment(Long doctorId, String firstname, String lastname, String phonenumber,
                                   String ssn, int year, int month, int day, int hour, int minute)
                                     throws EntityNotFoundException, InvalidAppointmentException;
     Appointment updateAppointment(Long appointmentId, int year,

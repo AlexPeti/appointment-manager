@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -39,20 +43,15 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Transactional
     @Override
-    public Appointment createAppointment(DoctorDTO doctorDTO,
-                                         String firstname,
-                                         String lastname,
-                                         String phonenumber,
-                                         String ssn,
-                                         int year, int month,
+    public Appointment createAppointment(Long doctorId, String firstname, String lastname,
+                                         String phonenumber, String ssn, int year, int month,
                                          int day, int hour, int minute) throws EntityNotFoundException, InvalidAppointmentException {
-
-        Doctor doctor = doctorRepository.findDoctorById(doctorDTO.getId());
+        Doctor doctor = doctorRepository.findDoctorById(doctorId);
         if (doctor == null) {
-            throw new EntityNotFoundException(Doctor.class, doctorDTO.getId());
+            throw new EntityNotFoundException(Doctor.class, doctorId);
         }
 
-        Patient patient = patientRepository.findByFirstnameAndLastname(firstname,lastname);
+        Patient patient = patientRepository.findByFirstnameAndLastname(firstname, lastname);
         if (patient == null) {
             Patient newPatient = new Patient();
             newPatient.setFirstname(firstname);
@@ -62,7 +61,12 @@ public class AppointmentServiceImpl implements IAppointmentService {
             patient = patientRepository.save(newPatient);
         }
 
-        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute);
+        // Hardcoding a + 2 value to hour for now, because the LocalDateTime default is GMT +0, so when it changes
+        // any value we give it to -2
+        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour + 2, minute);
+        ZoneId zoneId = ZoneId.of("Europe/Athens");
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, zoneId);
+
         LocalDateTime officeOpeningTime = dateTime.withHour(9).withMinute(0);
         LocalDateTime officeClosingTime = dateTime.withHour(21).withMinute(0);
 
