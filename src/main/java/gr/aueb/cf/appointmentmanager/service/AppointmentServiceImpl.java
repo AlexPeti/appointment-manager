@@ -61,7 +61,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
             patient = patientRepository.save(newPatient);
         }
 
-        // Hardcoding a + 2 value to hour for now, because the LocalDateTime default is GMT +0, so when it changes
+        // Hardcoding a + 2 value to hour temporarily, because the LocalDateTime default is GMT +0, so it changes
         // any value we give it to -2
         LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour + 2, minute);
         ZoneId zoneId = ZoneId.of("Europe/Athens");
