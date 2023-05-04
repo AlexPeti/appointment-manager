@@ -8,12 +8,6 @@
 <body>
     <h1>Dashboard</h1>
     <h2>Doctors</h2>
-<!--    <ul>-->
-<!--        <li th:each="doctor : ${doctors}" th:text="'Dr. ' + ${doctor.firstname} + ' ' + ${doctor.lastname}"></li>-->
-<!--    </ul>-->
-<!--    <form action="/appointment/create" method="get">-->
-<!--        <button type="submit">Create Appointment</button>-->
-<!--    </form>-->
     <ul>
         <li th:each="doctor : ${doctors}">
             <span th:text="'Dr. ' + ${doctor.firstname} + ' ' + ${doctor.lastname}"></span>

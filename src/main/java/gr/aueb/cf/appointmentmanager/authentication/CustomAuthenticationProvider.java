@@ -21,7 +21,6 @@ import java.util.Locale;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-
     private final UserRepository userRepository;
     private final MessageSource messageSource;
 
