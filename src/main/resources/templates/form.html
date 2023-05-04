@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Book Appointment</title>
 </head>
-<body>
-<h1>Book Appointment</h1>
-<form th:action="@{/appointment/create}" method="post">
-    <input type="hidden" th:name="doctorId" th:value="${doctorId}"/>
-    <div>
-        <label for="firstname">First Name:</label>
-        <input type="text" id="firstname" name="firstname"/>
-    </div>
-    <div>
-        <label for="lastname">Last Name:</label>
-        <input type="text" id="lastname" name="lastname"/>
-    </div>
-    <div>
-        <label for="phonenumber">Phone Number:</label>
-        <input type="text" id="phonenumber" name="phonenumber"/>
-    </div>
-    <div>
-        <label for="ssn">Social Security Number:</label>
-        <input type="text" id="ssn" name="ssn"/>
-    </div>
-    <div>
-        <label for="year">Year:</label>
-        <input type="text" id="year" name="year"/>
-    </div>
-    <div>
-        <label for="month">Month:</label>
-        <input type="text" id="month" name="month"/>
-    </div>
-    <div>
-        <label for="day">Day:</label>
-        <input type="text" id="day" name="day"/>
-    </div>
-    <div>
-        <label for="hour">Hour:</label>
-        <input type="text" id="hour" name="hour"/>
-    </div>
-    <div>
-        <label for="minute">Minute:</label>
-        <input type="text" id="minute" name="minute"/>
-    </div>
-    <button type="submit">Book Appointment</button>
-</form>
-</body>
+    <body>
+    <h1>Book Appointment</h1>
+    <form th:action="@{/appointment/create}" method="post">
+        <input type="hidden" th:name="doctorId" th:value="${doctorId}"/>
+        <div>
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname"/>
+        </div>
+        <div>
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname"/>
+        </div>
+        <div>
+            <label for="phonenumber">Phone Number:</label>
+            <input type="text" id="phonenumber" name="phonenumber"/>
+        </div>
+        <div>
+            <label for="ssn">Social Security Number:</label>
+            <input type="text" id="ssn" name="ssn"/>
+        </div>
+        <div>
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year"/>
+        </div>
+        <div>
+            <label for="month">Month:</label>
+            <input type="text" id="month" name="month"/>
+        </div>
+        <div>
+            <label for="day">Day:</label>
+            <input type="text" id="day" name="day"/>
+        </div>
+        <div>
+            <label for="hour">Hour:</label>
+            <input type="text" id="hour" name="hour"/>
+        </div>
+        <div>
+            <label for="minute">Minute:</label>
+            <input type="text" id="minute" name="minute"/>
+        </div>
+        <button type="submit">Book Appointment</button>
+    </form>
+    </body>
 </html>

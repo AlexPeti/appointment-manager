@@ -86,15 +86,41 @@ public class AppointmentServiceImpl implements IAppointmentService {
         return appointment;
     }
 
+//    @Transactional
+//    @Override
+//    public Appointment updateAppointment(Long appointmentId, int year, int month,
+//                                         int day, int hour, int minute) throws EntityNotFoundException, InvalidAppointmentException {
+//        Appointment appointment = appointmentRepository.getAppointmentById(appointmentId);
+//        if (appointment == null) {
+//            throw new EntityNotFoundException(Appointment.class, appointmentId);
+//        }
+//        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute);
+//        LocalDateTime officeOpeningTime = dateTime.withHour(9).withMinute(0);
+//        LocalDateTime officeClosingTime = dateTime.withHour(21).withMinute(0);
+//
+//        if (dateTime.isBefore(officeOpeningTime) || dateTime.isAfter(officeClosingTime)) {
+//            throw new InvalidAppointmentException("Appointment time is outside of office hours.");
+//        }
+//
+//        if (dateTime.getHour() < 9 || dateTime.getHour() > 20 || (dateTime.getHour() == 20 && dateTime.getMinute() > 30)) {
+//            throw new InvalidAppointmentException("Invalid hour value for appointment time.");
+//        }
+//
+//        appointment.setAppointmentDateTime(dateTime);
+//        appointmentRepository.save(appointment);
+//        return appointment;
+//    }
+
     @Transactional
     @Override
-    public Appointment updateAppointment(Long appointmentId, int year, int month,
+    public Appointment updateAppointment(String firstname, String lastname, int year, int month,
                                          int day, int hour, int minute) throws EntityNotFoundException, InvalidAppointmentException {
-        Appointment appointment = appointmentRepository.getAppointmentById(appointmentId);
+
+        Appointment appointment = appointmentRepository.findAppointmentByPatientFirstnameAndPatientLastname(firstname,lastname);
         if (appointment == null) {
-            throw new EntityNotFoundException(Appointment.class, appointmentId);
+            throw new EntityNotFoundException(Appointment.class, 0L);
         }
-        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute);
+        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour + 2, minute);
         LocalDateTime officeOpeningTime = dateTime.withHour(9).withMinute(0);
         LocalDateTime officeClosingTime = dateTime.withHour(21).withMinute(0);
 
@@ -105,7 +131,6 @@ public class AppointmentServiceImpl implements IAppointmentService {
         if (dateTime.getHour() < 9 || dateTime.getHour() > 20 || (dateTime.getHour() == 20 && dateTime.getMinute() > 30)) {
             throw new InvalidAppointmentException("Invalid hour value for appointment time.");
         }
-
         appointment.setAppointmentDateTime(dateTime);
         appointmentRepository.save(appointment);
         return appointment;
@@ -113,14 +138,13 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Transactional
     @Override
-    public void deleteAppointment(Long id) throws EntityNotFoundException {
-        Appointment appointment = appointmentRepository.getAppointmentById(id);
+    public void deleteAppointment(String firstname, String lastname) throws EntityNotFoundException {
+        Appointment appointment = appointmentRepository.findAppointmentByPatientFirstnameAndPatientLastname(firstname,lastname);
 
         if (appointment == null) {
-            throw new EntityNotFoundException(Appointment.class,id);
+            throw new EntityNotFoundException(Appointment.class,0L);
         }
         appointmentRepository.delete(appointment);
-
     }
 
     @Override
