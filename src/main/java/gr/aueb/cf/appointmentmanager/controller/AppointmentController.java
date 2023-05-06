@@ -7,10 +7,11 @@ import gr.aueb.cf.appointmentmanager.service.IAppointmentService;
 import gr.aueb.cf.appointmentmanager.service.IDoctorService;
 import gr.aueb.cf.appointmentmanager.service.exceptions.EntityNotFoundException;
 import gr.aueb.cf.appointmentmanager.service.exceptions.InvalidAppointmentException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/appointment")
@@ -56,32 +57,51 @@ public class AppointmentController {
         return "redirect:/";
     }
 
+//    @GetMapping("/update")
+//    public String showUpdateForm(@RequestParam("doctorId") Long doctorId, Model model) throws EntityNotFoundException {
+//        model.addAttribute("appointment", appointmentService.getAppointmentsByDoctor(doctorId));
+//        return "update-form";
+//    }
+
+//    @PostMapping("/update")
+//    public String updateAppointment(@RequestParam("firstname") Long doctorId,
+//                                    @RequestParam("year") int year,
+//                                    @RequestParam("month") int month,
+//                                    @RequestParam("day") int day,
+//                                    @RequestParam("hour") int hour,
+//                                    @RequestParam("minute") int minute) throws EntityNotFoundException, InvalidAppointmentException {
+//
+//        appointmentService.updateAppointment(doctorId, year, month, day, hour, minute);
+//
+//        return "redirect:/appointments";
+//    }
+
     @GetMapping("/update")
-    public String showUpdateForm(@RequestParam("doctorId") Long doctorId, Model model) throws EntityNotFoundException {
-        model.addAttribute("appointment", appointmentService.getAppointmentsByDoctor(doctorId));
+    public String showUpdateForm(@RequestParam("appointmentId") Long appointmentId, Model model) throws EntityNotFoundException {
+        model.addAttribute("appointment", appointmentService.getAppointmentById(appointmentId));
         return "update-form";
     }
 
     @PostMapping("/update")
-    public String updateAppointment(@RequestParam("firstname") String firstname,
-                                    @RequestParam("lastname") String lastname,
+    public String updateAppointment(@RequestParam("appointmentId") Long appointmentId,
                                     @RequestParam("year") int year,
                                     @RequestParam("month") int month,
                                     @RequestParam("day") int day,
                                     @RequestParam("hour") int hour,
-                                    @RequestParam("minute") int minute) throws EntityNotFoundException, InvalidAppointmentException {
-
-        appointmentService.updateAppointment(firstname, lastname, year, month, day, hour, minute);
-
-        return "dashboard";
+                                    @RequestParam("minute") int minute) throws InvalidAppointmentException, EntityNotFoundException {
+        appointmentService.updateAppointment(appointmentId,year,month,day,hour,minute);
+        return "appointments";
     }
 
+
+
+    // Works correctly when used inside the appointments.html page
     @GetMapping("/delete")
     public String showDeleteForm(@RequestParam("doctorId") Long doctorId, Model model) throws EntityNotFoundException {
         model.addAttribute("appointment", appointmentService.getAppointmentsByDoctor(doctorId));
-        return "delete-form";
+//        return "delete-form";
+        return "appointments";
     }
-
 
     @PostMapping("/delete")
     public String deleteAppointment(@RequestParam("firstname") String firstname,@RequestParam("lastname") String lastname)
@@ -89,6 +109,16 @@ public class AppointmentController {
 
         appointmentService.deleteAppointment(firstname, lastname);
 
-        return "dashboard";
+//        return "redirect:/dashboard";
+        return "redirect:/";
+    }
+
+    @GetMapping("/schedule")
+    public String showScheduleForm(@RequestParam("doctorId") Long doctorId, Model model) throws EntityNotFoundException {
+        Doctor doctor = doctorService.getDoctorById(doctorId);
+        List<Appointment> appointments = appointmentService.getAppointmentsByDoctor(doctor.getId());
+        model.addAttribute("doctor", doctor);
+        model.addAttribute("appointments", appointments);
+        return "appointments";
     }
 }
