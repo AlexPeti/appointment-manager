@@ -69,8 +69,21 @@ public class AppointmentServiceImpl implements IAppointmentService {
             throw new InvalidAppointmentException("Appointment time is outside of office hours.");
         }
 
-        if (dateTime.getHour() < 9 || dateTime.getHour() > 20 || (dateTime.getHour() == 20 && dateTime.getMinute() > 30)) {
+        if (dateTime.getHour() < 9 || dateTime.getHour() > 20 || (dateTime.getHour() == 20 && dateTime.getMinute() > 50)) {
             throw new InvalidAppointmentException("Invalid hour value for appointment time.");
+        }
+
+        // Check for appointments with the same date and time before booking
+        List<Appointment> doctorAppointments = doctor.getAppointments();
+        for (Appointment appointment : doctorAppointments) {
+            LocalDateTime existingDateTime = appointment.getAppointmentDateTime();
+            if (existingDateTime.getYear() == year &&
+                    existingDateTime.getMonth().getValue() == month &&
+                    existingDateTime.getDayOfMonth() == day &&
+                    existingDateTime.getHour() == hour &&
+                    existingDateTime.getMinute() == minute) {
+                throw new InvalidAppointmentException("Doctor already has an appointment at that time.");
+            }
         }
 
         Appointment appointment = new Appointment();
@@ -97,9 +110,11 @@ public class AppointmentServiceImpl implements IAppointmentService {
             throw new InvalidAppointmentException("Appointment time is outside of office hours.");
         }
 
-        if (dateTime.getHour() < 9 || dateTime.getHour() > 20 || (dateTime.getHour() == 20 && dateTime.getMinute() > 30)) {
-            throw new InvalidAppointmentException("Invalid hour value for appointment time.");
+        if (dateTime.getHour() < 9 || dateTime.getHour() > 20 || (dateTime.getHour() == 20 && dateTime.getMinute() > 50)) {
+            throw new InvalidAppointmentException("Invalid appointment time, please provide a time that is between office hours.");
         }
+
+
 
         appointment.setAppointmentDateTime(dateTime);
         appointmentRepository.save(appointment);
