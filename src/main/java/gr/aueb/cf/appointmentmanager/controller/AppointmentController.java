@@ -57,25 +57,6 @@ public class AppointmentController {
         return "redirect:/";
     }
 
-//    @GetMapping("/update")
-//    public String showUpdateForm(@RequestParam("doctorId") Long doctorId, Model model) throws EntityNotFoundException {
-//        model.addAttribute("appointment", appointmentService.getAppointmentsByDoctor(doctorId));
-//        return "update-form";
-//    }
-
-//    @PostMapping("/update")
-//    public String updateAppointment(@RequestParam("firstname") Long doctorId,
-//                                    @RequestParam("year") int year,
-//                                    @RequestParam("month") int month,
-//                                    @RequestParam("day") int day,
-//                                    @RequestParam("hour") int hour,
-//                                    @RequestParam("minute") int minute) throws EntityNotFoundException, InvalidAppointmentException {
-//
-//        appointmentService.updateAppointment(doctorId, year, month, day, hour, minute);
-//
-//        return "redirect:/appointments";
-//    }
-
     @GetMapping("/update")
     public String showUpdateForm(@RequestParam("appointmentId") Long appointmentId, Model model) throws EntityNotFoundException {
         model.addAttribute("appointment", appointmentService.getAppointmentById(appointmentId));
@@ -90,16 +71,13 @@ public class AppointmentController {
                                     @RequestParam("hour") int hour,
                                     @RequestParam("minute") int minute) throws InvalidAppointmentException, EntityNotFoundException {
         appointmentService.updateAppointment(appointmentId,year,month,day,hour,minute);
-        return "appointments";
+//        return "appointments";
+        return "redirect:/";
     }
 
-
-
-    // Works correctly when used inside the appointments.html page
     @GetMapping("/delete")
     public String showDeleteForm(@RequestParam("doctorId") Long doctorId, Model model) throws EntityNotFoundException {
         model.addAttribute("appointment", appointmentService.getAppointmentsByDoctor(doctorId));
-//        return "delete-form";
         return "appointments";
     }
 
@@ -109,7 +87,6 @@ public class AppointmentController {
 
         appointmentService.deleteAppointment(firstname, lastname);
 
-//        return "redirect:/dashboard";
         return "redirect:/";
     }
 

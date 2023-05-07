@@ -1,6 +1,5 @@
 package gr.aueb.cf.appointmentmanager.service;
 
-import gr.aueb.cf.appointmentmanager.dto.DoctorDTO;
 import gr.aueb.cf.appointmentmanager.model.Appointment;
 import gr.aueb.cf.appointmentmanager.model.Doctor;
 import gr.aueb.cf.appointmentmanager.model.Patient;
@@ -17,8 +16,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.chrono.ChronoZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -61,9 +58,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
             patient = patientRepository.save(newPatient);
         }
 
-        // Hardcoding a + 2 value to hour temporarily, because the LocalDateTime default is GMT +0, so it changes
-        // any value we give it to -2
-        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour + 2, minute);
+        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute);
         ZoneId zoneId = ZoneId.of("Europe/Athens");
         ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, zoneId);
 
@@ -94,7 +89,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
         if (appointment == null) {
             throw new EntityNotFoundException(Appointment.class, appointmentId);
         }
-        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour + 2, minute);
+        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute);
         LocalDateTime officeOpeningTime = dateTime.withHour(9).withMinute(0);
         LocalDateTime officeClosingTime = dateTime.withHour(21).withMinute(0);
 
