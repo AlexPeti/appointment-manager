@@ -20,5 +20,19 @@
             </form>
         </li>
     </ul>
+    <div>
+        <button id="add-doctor-btn" onclick="showDoctorForm()">Add a new doctor</button>
+    </div>
+    <form id="doctor-form" method="post" action="/doctors/create" style="display:none;">
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" placeholder="First name"/>
+
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" placeholder="Last name"/>
+
+        <button type="submit">Save</button>
+    </form>
+
+
 </body>
 </html>
