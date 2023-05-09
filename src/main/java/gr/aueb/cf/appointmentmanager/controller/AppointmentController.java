@@ -71,7 +71,6 @@ public class AppointmentController {
                                     @RequestParam("hour") int hour,
                                     @RequestParam("minute") int minute) throws InvalidAppointmentException, EntityNotFoundException {
         appointmentService.updateAppointment(appointmentId,year,month,day,hour,minute);
-//        return "appointments";
         return "redirect:/";
     }
 

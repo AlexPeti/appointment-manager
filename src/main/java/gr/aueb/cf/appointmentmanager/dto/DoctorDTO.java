@@ -16,12 +16,9 @@ public class DoctorDTO {
 
     private String lastname;
 
-    private List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
-
-    public DoctorDTO(Long id, String firstname, String lastname, List<AppointmentDTO> appointmentsDTO) {
+    public DoctorDTO(Long id, String firstname, String lastname) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.appointmentsDTO = appointmentsDTO;
     }
 }

@@ -48,6 +48,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
             throw new EntityNotFoundException(Doctor.class, doctorId);
         }
 
+        // Change this to find by ssn, which is unique
         Patient patient = patientRepository.findByFirstnameAndLastname(firstname, lastname);
         if (patient == null) {
             Patient newPatient = new Patient();

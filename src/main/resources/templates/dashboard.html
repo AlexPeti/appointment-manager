@@ -14,14 +14,6 @@
                 <input type="hidden" th:name="doctorId" th:value="${doctor.id}"/>
                 <button type="submit">Create Appointment</button>
             </form>
-<!--            <form th:action="@{/appointment/update}" method="get">-->
-<!--                <input type="hidden" th:name="doctorId" th:value="${doctor.id}"/>-->
-<!--                <button type="submit">Update Appointment</button>-->
-<!--            </form>-->
-<!--            <form th:action="@{/appointment/delete}" method="get">-->
-<!--                <input type="hidden" th:name="doctorId" th:value="${doctor.id}"/>-->
-<!--                <button type="submit">Delete Appointment</button>-->
-<!--            </form>-->
             <form th:action="@{/appointment/schedule}" method="get">
                 <input type="hidden" th:name="doctorId" th:value="${doctor.id}"/>
                 <button type="submit">Check Schedule</button>

@@ -20,14 +20,11 @@ public class PatientDTO {
 
     private String ssn;
 
-    private List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
-
-    public PatientDTO(Long id, String firstname, String lastname, String phoneNumber, String ssn, List<AppointmentDTO> appointmentsDTO) {
+    public PatientDTO(Long id, String firstname, String lastname, String phoneNumber, String ssn) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.phoneNumber = phoneNumber;
         this.ssn = ssn;
-        this.appointmentsDTO = appointmentsDTO;
     }
 }
