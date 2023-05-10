@@ -9,9 +9,13 @@ import gr.aueb.cf.appointmentmanager.repository.DoctorRepository;
 import gr.aueb.cf.appointmentmanager.repository.PatientRepository;
 import gr.aueb.cf.appointmentmanager.service.exceptions.EntityNotFoundException;
 import gr.aueb.cf.appointmentmanager.service.exceptions.InvalidAppointmentException;
+import gr.aueb.cf.appointmentmanager.service.exceptions.InvalidPatientException;
+import gr.aueb.cf.appointmentmanager.validator.PatientValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -23,16 +27,18 @@ public class AppointmentServiceImpl implements IAppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
+    private final PatientValidator patientValidator;
     private final ModelMapper modelMapper;
 
     @Autowired
     public AppointmentServiceImpl(AppointmentRepository appointmentRepository,
                                   DoctorRepository doctorRepository,
                                   PatientRepository patientRepository,
-                                  ModelMapper modelMapper) {
+                                  PatientValidator patientValidator, ModelMapper modelMapper) {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
         this.patientRepository = patientRepository;
+        this.patientValidator = patientValidator;
         this.modelMapper = modelMapper;
     }
 
@@ -80,7 +86,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Override
     public Appointment createAppointment(Long doctorId, String firstname, String lastname,
                                          String phonenumber, String ssn, int year, int month,
-                                         int day, int hour, int minute) throws EntityNotFoundException, InvalidAppointmentException {
+                                         int day, int hour, int minute) throws EntityNotFoundException,
+                                            InvalidAppointmentException, InvalidPatientException {
 
         Doctor doctor = doctorRepository.findDoctorById(doctorId);
         if (doctor == null) {
@@ -95,6 +102,13 @@ public class AppointmentServiceImpl implements IAppointmentService {
             patientDTO.setLastname(lastname);
             patientDTO.setPhoneNumber(phonenumber);
             patientDTO.setSsn(ssn);
+
+            // Validate the patientDTO
+            Errors errors = new BeanPropertyBindingResult(patientDTO, "patientDTO");
+            patientValidator.validate(patientDTO, errors);
+            if (errors.hasErrors()) {
+                throw new InvalidPatientException("Error in required fields");
+            }
 
             patient = modelMapper.map(patientDTO, Patient.class);
             patient = patientRepository.save(patient);

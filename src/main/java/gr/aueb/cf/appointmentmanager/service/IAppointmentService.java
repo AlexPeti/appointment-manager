@@ -5,6 +5,7 @@ import gr.aueb.cf.appointmentmanager.dto.PatientDTO;
 import gr.aueb.cf.appointmentmanager.model.Appointment;
 import gr.aueb.cf.appointmentmanager.service.exceptions.EntityNotFoundException;
 import gr.aueb.cf.appointmentmanager.service.exceptions.InvalidAppointmentException;
+import gr.aueb.cf.appointmentmanager.service.exceptions.InvalidPatientException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface IAppointmentService {
     Appointment createAppointment(Long doctorId, String firstname, String lastname, String phonenumber,
                                   String ssn, int year, int month, int day, int hour, int minute)
-                                    throws EntityNotFoundException, InvalidAppointmentException;
+            throws EntityNotFoundException, InvalidAppointmentException, InvalidPatientException;
     Appointment updateAppointment(Long doctorId, int year,
                                   int month, int day, int hour, int minute) throws EntityNotFoundException, InvalidAppointmentException;
     void deleteAppointment(String firstname, String lastname) throws EntityNotFoundException;

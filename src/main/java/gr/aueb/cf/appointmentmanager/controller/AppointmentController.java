@@ -7,6 +7,7 @@ import gr.aueb.cf.appointmentmanager.service.IAppointmentService;
 import gr.aueb.cf.appointmentmanager.service.IDoctorService;
 import gr.aueb.cf.appointmentmanager.service.exceptions.EntityNotFoundException;
 import gr.aueb.cf.appointmentmanager.service.exceptions.InvalidAppointmentException;
+import gr.aueb.cf.appointmentmanager.service.exceptions.InvalidPatientException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,14 +44,8 @@ public class AppointmentController {
                                     @RequestParam("month") int month,
                                     @RequestParam("day") int day,
                                     @RequestParam("hour") int hour,
-                                    @RequestParam("minute") int minute) throws EntityNotFoundException, InvalidAppointmentException {
-
-        Doctor doctor = doctorService.getDoctorById(doctorId);
-        Patient patient = new Patient();
-        patient.setFirstname(firstname);
-        patient.setLastname(lastname);
-        patient.setPhoneNumber(phonenumber);
-        patient.setSsn(ssn);
+                                    @RequestParam("minute") int minute) throws EntityNotFoundException,
+                                    InvalidAppointmentException, InvalidPatientException {
 
         appointmentService.createAppointment(doctorId,firstname,lastname,phonenumber,ssn,year,month,day,hour,minute);
 
@@ -70,6 +65,7 @@ public class AppointmentController {
                                     @RequestParam("day") int day,
                                     @RequestParam("hour") int hour,
                                     @RequestParam("minute") int minute) throws InvalidAppointmentException, EntityNotFoundException {
+
         appointmentService.updateAppointment(appointmentId,year,month,day,hour,minute);
         return "redirect:/";
     }
