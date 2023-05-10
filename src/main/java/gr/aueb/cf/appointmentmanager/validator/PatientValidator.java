@@ -32,7 +32,7 @@ public class PatientValidator implements Validator {
         if (newPatient.getFirstname().length() < 2 || newPatient.getFirstname().length() > 32) {
             errors.rejectValue("firstname", "size");
         }
-        // Check if firstname contains integers
+        // Check if firstname contains numbers
         if (newPatient.getFirstname().matches(".*\\d+.*")) {
             errors.rejectValue("firstname", "containsIntegers");
         }
@@ -40,17 +40,19 @@ public class PatientValidator implements Validator {
         if (newPatient.getLastname().length() < 2 || newPatient.getLastname().length() > 32) {
             errors.rejectValue("lastname", "size");
         }
-        // Check if lastname contains integers
+        // Check if lastname contains numbers
         if (newPatient.getLastname().matches(".*\\d+.*")) {
             errors.rejectValue("lastname", "containsIntegers");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phoneNumber", "empty");
-        if (newPatient.getPhoneNumber().length() != 10 || !newPatient.getPhoneNumber().matches("[0-9]")) {
+        // Check if phone number is exactly 10 digits and does not contain letters or symbols
+        if (newPatient.getPhoneNumber().length() != 10 || !newPatient.getPhoneNumber().matches("^[0-9]*$")) {
             errors.rejectValue("phoneNumber","invalidPhoneNumber");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ssn", "empty");
-//        if (newPatient.getSsn().length() != 10 || !newPatient.getSsn().matches("^[0-9]{11}$")) {
-//            errors.rejectValue("ssn", "invalidSsn");
-//        }
+        // Check if ssn is exactly 11 digits and does not contain letters or symbols
+        if (newPatient.getSsn().length() != 11 || !newPatient.getSsn().matches("^[0-9]*$")) {
+            errors.rejectValue("ssn","invalidSsn");
+        }
     }
 }
