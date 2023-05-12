@@ -32,17 +32,17 @@ public class PatientValidator implements Validator {
         if (newPatient.getFirstname().length() < 2 || newPatient.getFirstname().length() > 32) {
             errors.rejectValue("firstname", "size");
         }
-        // Check if firstname contains numbers
-        if (newPatient.getFirstname().matches(".*\\d+.*")) {
-            errors.rejectValue("firstname", "containsIntegers");
+        // Check if firstname contains numbers or symbols
+        if (newPatient.getFirstname().matches("^[A-Za-z]+$")) {
+            errors.rejectValue("firstname", "containsIntegersOrSpecialChars");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastname", "empty");
         if (newPatient.getLastname().length() < 2 || newPatient.getLastname().length() > 32) {
             errors.rejectValue("lastname", "size");
         }
-        // Check if lastname contains numbers
-        if (newPatient.getLastname().matches(".*\\d+.*")) {
-            errors.rejectValue("lastname", "containsIntegers");
+        // Check if lastname contains numbers or symbols
+        if (newPatient.getLastname().matches("^[A-Za-z]+$")) {
+            errors.rejectValue("lastname", "containsIntegersOrSpecialChars");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phoneNumber", "empty");
         // Check if phone number is exactly 10 digits and does not contain letters or symbols
