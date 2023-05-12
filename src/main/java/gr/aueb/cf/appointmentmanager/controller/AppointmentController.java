@@ -51,7 +51,8 @@ public class AppointmentController {
     }
 
     /**
-     * Creates a new {@link Appointment} with the specified details.
+     * Creates a new {@link Appointment} with the specified details and displays
+     * the appointment details on a modal window.
      *
      * @param doctorId the ID of the {@link Doctor} for the appointment
      * @param firstname the first name of the patient for the appointment
@@ -63,7 +64,7 @@ public class AppointmentController {
      * @param day the day of the appointment date
      * @param hour the hour of the appointment time
      * @param minute the minute of the appointment time
-     * @return a redirect to the home page if the appointment is successfully booked
+     * @return the appointment details view if the appointment is successfully created
      * @throws EntityNotFoundException if the specified {@link Doctor} does not exist
      * @throws InvalidAppointmentException if the specified appointment is invalid
      * @throws InvalidPatientException if the specified patient is invalid
@@ -81,10 +82,6 @@ public class AppointmentController {
                                     @RequestParam("minute") int minute,
                                     Model model) throws EntityNotFoundException,
                                     InvalidAppointmentException, InvalidPatientException {
-
-//        appointmentService.createAppointment(doctorId,firstname,lastname,phonenumber,ssn,year,month,day,hour,minute);
-
-//        return "redirect:/";
 
         Appointment appointment = appointmentService.createAppointment(doctorId,firstname,lastname,phonenumber,ssn,year,month,day,hour,minute);
 
@@ -111,7 +108,8 @@ public class AppointmentController {
     }
 
     /**
-     * Updates an existing appointment with the specified ID to the given date and time.
+     * Updates an existing appointment with the specified ID to the given date and time and
+     * displays the appointment details on a modal window.
      *
      * @param appointmentId The ID of the appointment to update
      * @param year The year of the new appointment date
@@ -121,7 +119,7 @@ public class AppointmentController {
      * @param minute The minute of the new appointment time
      * @throws InvalidAppointmentException if the given date or time is invalid
      * @throws EntityNotFoundException if the appointment with the given ID does not exist
-     * @return A redirect to the home page if the appointment is successfully updated
+     * @return the appointment details view if the appointment is successfully updated
      */
     @PostMapping("/update")
     public String updateAppointment(@RequestParam("appointmentId") Long appointmentId,
@@ -129,10 +127,17 @@ public class AppointmentController {
                                     @RequestParam("month") int month,
                                     @RequestParam("day") int day,
                                     @RequestParam("hour") int hour,
-                                    @RequestParam("minute") int minute) throws InvalidAppointmentException, EntityNotFoundException {
+                                    @RequestParam("minute") int minute,
+                                    Model model) throws InvalidAppointmentException, EntityNotFoundException {
 
-        appointmentService.updateAppointment(appointmentId,year,month,day,hour,minute);
-        return "redirect:/";
+        Appointment appointment = appointmentService.updateAppointment(appointmentId,year,month,day,hour,minute);
+
+        String message = "Your updated appointment with " + appointment.getDoctor().getFirstname() + " "
+                + appointment.getDoctor().getLastname() + " is booked for " + appointment.getAppointmentDateTime();
+
+        model.addAttribute("message", message);
+
+        return "appointment-details";
     }
 
     /**
