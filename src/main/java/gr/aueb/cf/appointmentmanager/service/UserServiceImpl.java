@@ -6,6 +6,7 @@ import gr.aueb.cf.appointmentmanager.repository.UserRepository;
 import gr.aueb.cf.appointmentmanager.service.exceptions.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,17 +16,22 @@ public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    ////
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     @Override
     public User registerUser(UserDTO userToRegister) {
         User user = modelMapper.map(userToRegister, User.class);
+        ////
+        user.setPassword(passwordEncoder.encode(userToRegister.getPassword()));
         return userRepository.save(user);
     }
 

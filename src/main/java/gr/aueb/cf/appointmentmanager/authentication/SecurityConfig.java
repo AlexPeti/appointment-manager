@@ -10,12 +10,21 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+/**
+ * The SecurityConfig class is responsible for configuring Spring Security for this application.
+ * It enables web security, configures authentication and authorization, and defines security filters.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new CustomPasswordEncoder();
+    }
 
     private final CustomAuthenticationProvider authProvider;
 
@@ -29,6 +38,14 @@ public class SecurityConfig {
         auth.authenticationProvider(authProvider);
     }
 
+    /**
+     * Configures the specified HttpSecurity instance to set up security filters and authorize access
+     * to different parts of the application
+     *
+     * @param http an HttpSecurity instance
+     * @return a SecurityFilterChain instance
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -44,11 +61,23 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Returns a new instance of WebSecurityCustomizer that ignores certain paths.
+     *
+     * @return a WebSecurityCustomizer instance
+     */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers("/styles/**", "/img/**", "/js/**");
     }
 
+    /**
+     * Returns a new instance of AuthenticationManager that is used for authenticating users.
+     *
+     * @param authenticationConfiguration an AuthenticationConfiguration instance
+     * @return an AuthenticationManager instance
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
