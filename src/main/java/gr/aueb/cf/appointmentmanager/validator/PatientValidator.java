@@ -33,7 +33,7 @@ public class PatientValidator implements Validator {
             errors.rejectValue("firstname", "size");
         }
         // Check if firstname contains numbers or symbols
-        if (newPatient.getFirstname().matches("^[A-Za-z]+$")) {
+        if (!newPatient.getFirstname().matches("^[A-Za-z]+$")) {
             errors.rejectValue("firstname", "containsIntegersOrSpecialChars");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastname", "empty");
@@ -41,7 +41,7 @@ public class PatientValidator implements Validator {
             errors.rejectValue("lastname", "size");
         }
         // Check if lastname contains numbers or symbols
-        if (newPatient.getLastname().matches("^[A-Za-z]+$")) {
+        if (!newPatient.getLastname().matches("^[A-Za-z]+$")) {
             errors.rejectValue("lastname", "containsIntegersOrSpecialChars");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phoneNumber", "empty");

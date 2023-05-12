@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/styles/appointment-details.css">
+  <title>Appointment Details</title>
+</head>
+<body>
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Appointment Details</h2>
+    <p th:text="${message}"></p>
+  </div>
+</div>
+
+<script type="text/javascript" src="/js/appointment-details.js"></script>
+</body>
+</html>

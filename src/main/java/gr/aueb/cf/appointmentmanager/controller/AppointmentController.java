@@ -78,12 +78,22 @@ public class AppointmentController {
                                     @RequestParam("month") int month,
                                     @RequestParam("day") int day,
                                     @RequestParam("hour") int hour,
-                                    @RequestParam("minute") int minute) throws EntityNotFoundException,
+                                    @RequestParam("minute") int minute,
+                                    Model model) throws EntityNotFoundException,
                                     InvalidAppointmentException, InvalidPatientException {
 
-        appointmentService.createAppointment(doctorId,firstname,lastname,phonenumber,ssn,year,month,day,hour,minute);
+//        appointmentService.createAppointment(doctorId,firstname,lastname,phonenumber,ssn,year,month,day,hour,minute);
 
-        return "redirect:/";
+//        return "redirect:/";
+
+        Appointment appointment = appointmentService.createAppointment(doctorId,firstname,lastname,phonenumber,ssn,year,month,day,hour,minute);
+
+        String message = "Your appointment with " + appointment.getDoctor().getFirstname() + " "
+                + appointment.getDoctor().getLastname() + " is booked for " + appointment.getAppointmentDateTime();
+
+        model.addAttribute("message", message);
+
+        return "appointment-details";
     }
 
     /**

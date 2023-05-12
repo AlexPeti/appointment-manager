@@ -5,22 +5,6 @@
     <title>Appointments</title>
 </head>
 <body>
-<!--<h1>Appointments</h1>-->
-<!--<h2>Doctor: <span th:text="${doctor.firstname} + ' ' + ${doctor.lastname}"></span></h2>-->
-<!--<table>-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th>Date</th>-->
-<!--        <th>Patient Name</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr th:each="appointment : ${appointments}">-->
-<!--        <td th:text="${appointment.appointmentDateTime}"></td>-->
-<!--        <td th:text="${appointment.patient.firstname} + ' ' + ${appointment.patient.lastname}"></td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--</table>-->
 <h1>Appointments</h1>
 
 <table>
@@ -36,9 +20,6 @@
         <td th:text="${appointment.appointmentDateTime}"></td>
         <td th:text="${appointment.patient.firstname} + ' ' + ${appointment.patient.lastname}"></td>
         <td>
-<!--             <form th:action="@{/appointment/update}" method="get">-->
-<!--             <input type="hidden" th:name="doctorId" th:value="${doctor.id}"/>-->
-<!--             <button type="submit">Update Appointment</button>-->
             <form th:action="@{/appointment/update}" method="get">
                 <input type="hidden" th:name="appointmentId" th:value="${appointment.id}"/>
                 <button type="submit">Update Appointment</button>
