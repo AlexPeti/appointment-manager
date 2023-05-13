@@ -83,10 +83,12 @@ public class AppointmentController {
                                     Model model) throws EntityNotFoundException,
                                     InvalidAppointmentException, InvalidPatientException {
 
-        Appointment appointment = appointmentService.createAppointment(doctorId,firstname,lastname,phonenumber,ssn,year,month,day,hour,minute);
+        Appointment appointment = appointmentService.createAppointment(doctorId,firstname,lastname,
+                                                        phonenumber,ssn,year,month,day,hour,minute);
 
-        String message = "Your appointment with " + appointment.getDoctor().getFirstname() + " "
-                + appointment.getDoctor().getLastname() + " is booked for " + appointment.getAppointmentDateTime();
+        String message = "A new appointment for " + appointment.getPatient().getFirstname()
+                + " " + appointment.getPatient().getLastname() + " with Dr. " + appointment.getDoctor().getFirstname()
+                + " " + appointment.getDoctor().getLastname() + " is booked for " + appointment.getAppointmentDateTime();
 
         model.addAttribute("message", message);
 
@@ -132,8 +134,9 @@ public class AppointmentController {
 
         Appointment appointment = appointmentService.updateAppointment(appointmentId,year,month,day,hour,minute);
 
-        String message = "Your updated appointment with " + appointment.getDoctor().getFirstname() + " "
-                + appointment.getDoctor().getLastname() + " is booked for " + appointment.getAppointmentDateTime();
+        String message = "Updated appointment for patient " + appointment.getPatient().getFirstname() + " " +
+                appointment.getPatient().getLastname() + " with Dr. " + appointment.getDoctor().getFirstname() + " "
+                + appointment.getDoctor().getLastname() + ". The new date and time is " + appointment.getAppointmentDateTime();
 
         model.addAttribute("message", message);
 
