@@ -16,7 +16,6 @@ public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    ////
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -30,7 +29,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User registerUser(UserDTO userToRegister) {
         User user = modelMapper.map(userToRegister, User.class);
-        ////
         user.setPassword(passwordEncoder.encode(userToRegister.getPassword()));
         return userRepository.save(user);
     }
