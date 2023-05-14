@@ -54,9 +54,6 @@ public class SecurityConfig {
                 .authorizeRequests().antMatchers("/dashboard").authenticated()
                 .anyRequest().authenticated().and().formLogin()
                 .loginPage("/login").defaultSuccessUrl("/dashboard").permitAll()
-//                .and().httpBasic()
-//                .and()
-//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
                 .and()
                 .logout()
                 .logoutUrl("/logout")
