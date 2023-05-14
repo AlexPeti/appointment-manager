@@ -1,5 +1,8 @@
 package gr.aueb.cf.appointmentmanager.service.exceptions;
 
+/**
+ * Exception thrown when an entity with a given ID does not exist in the database.
+ */
 public class EntityNotFoundException extends Exception {
     private static final long serialVersionUID = 1L;
 
