@@ -17,7 +17,8 @@
     </thead>
     <tbody>
     <tr th:each="appointment : ${appointments}">
-        <td th:text="${appointment.appointmentDateTime}"></td>
+<!--    Date time formatter for displaying the date and time of the appointments in a more readable way    -->
+        <td th:text="${#temporals.format(appointment.appointmentDateTime, 'dd-MM-yyyy HH:mm')}"></td>
         <td th:text="${appointment.patient.firstname} + ' ' + ${appointment.patient.lastname}"></td>
         <td>
             <form th:action="@{/appointment/update}" method="get">

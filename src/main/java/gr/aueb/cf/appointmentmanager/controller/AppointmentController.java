@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -86,9 +88,11 @@ public class AppointmentController {
         Appointment appointment = appointmentService.createAppointment(doctorId,firstname,lastname,
                                                         phonenumber,ssn,year,month,day,hour,minute);
 
+        // Displaying the appointment details in the modal after creating it and also formatting the date and time
         String message = "A new appointment for " + appointment.getPatient().getFirstname()
                 + " " + appointment.getPatient().getLastname() + " with Dr. " + appointment.getDoctor().getFirstname()
-                + " " + appointment.getDoctor().getLastname() + " is booked for " + appointment.getAppointmentDateTime();
+                + " " + appointment.getDoctor().getLastname() + " is booked for " + appointment.getAppointmentDateTime()
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ".";
 
         model.addAttribute("message", message);
 
@@ -134,9 +138,11 @@ public class AppointmentController {
 
         Appointment appointment = appointmentService.updateAppointment(appointmentId,year,month,day,hour,minute);
 
+        // Displaying the appointment details in the modal after updating it and also formatting the date and time
         String message = "Updated appointment for patient " + appointment.getPatient().getFirstname() + " " +
                 appointment.getPatient().getLastname() + " with Dr. " + appointment.getDoctor().getFirstname() + " "
-                + appointment.getDoctor().getLastname() + ". The new date and time is " + appointment.getAppointmentDateTime();
+                + appointment.getDoctor().getLastname() + ". The new date and time is " + appointment.getAppointmentDateTime()
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ".";
 
         model.addAttribute("message", message);
 
