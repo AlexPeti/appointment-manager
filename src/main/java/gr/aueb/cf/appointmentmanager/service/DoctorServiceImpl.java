@@ -1,7 +1,9 @@
 package gr.aueb.cf.appointmentmanager.service;
 
 import gr.aueb.cf.appointmentmanager.dto.DoctorDTO;
+import gr.aueb.cf.appointmentmanager.model.Appointment;
 import gr.aueb.cf.appointmentmanager.model.Doctor;
+import gr.aueb.cf.appointmentmanager.repository.AppointmentRepository;
 import gr.aueb.cf.appointmentmanager.repository.DoctorRepository;
 import gr.aueb.cf.appointmentmanager.service.exceptions.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -16,11 +18,13 @@ import java.util.Optional;
 public class DoctorServiceImpl implements IDoctorService {
 
     private final DoctorRepository doctorRepository;
+    private final AppointmentRepository appointmentRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public DoctorServiceImpl(DoctorRepository doctorRepository, ModelMapper modelMapper) {
+    public DoctorServiceImpl(DoctorRepository doctorRepository, AppointmentRepository appointmentRepository, ModelMapper modelMapper) {
         this.doctorRepository = doctorRepository;
+        this.appointmentRepository = appointmentRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -51,6 +55,11 @@ public class DoctorServiceImpl implements IDoctorService {
         if (doctor == null) {
             throw new EntityNotFoundException(Doctor.class,id);
         }
+
+        // Delete doctor's appointments before deleting the doctor
+        List<Appointment> appointments = appointmentRepository.findAllByDoctorId(id);
+        appointmentRepository.deleteAll(appointments);
+
         doctorRepository.delete(doctor);
     }
 

@@ -18,6 +18,10 @@
                 <input type="hidden" th:name="doctorId" th:value="${doctor.id}"/>
                 <button type="submit">Check Schedule</button>
             </form>
+            <form action="/doctors/delete" method="POST">
+                <input type="hidden" name="doctorId" th:value="${doctor.id}" />
+                <button type="submit">Delete Doctor</button>
+            </form>
         </li>
     </ul>
     <div>
