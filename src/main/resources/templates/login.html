@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <link rel="stylesheet" href="/styles/login.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>Log in</title>
 </head>
-<body>
-<div class="outer">
-  <div class="middle">
 
-    <div class="inner rounded">
+<style>
+  html, body {
+    height: 100vh;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+</style>
+
+<body>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
       <form action="/login" method="post">
-        <div class="gap-bottom">
-          <span><b>User log-in</b></span>
+        <div class="text-center mb-4">
+          <h3>User Log-in</h3>
         </div>
-        <div  class="gap-bottom">
-          <input id="email" class="form-input account" type="text" placeholder="username" value="" name="username" autofocus>
+        <div class="form-group">
+          <input id="email" class="form-control" type="text" placeholder="Username" value="" name="username" autofocus>
         </div>
-        <div class="gap-bottom">
-          <input id="password" class="form-input password" type="password" placeholder="password" value="" name="password">
+        <div class="form-group">
+          <input id="password" class="form-control" type="password" placeholder="Password" value="" name="password">
         </div>
-        <div class="gap-bottom">
-          <input type="submit" class="form-btn" value="Log-in">
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </div>
-        <div class="gap-bottom">
-          <span>Don't have an account? Create one </span><a href="/register">here</a>
+        <div class="text-center">
+          <span>Don't have an account? Create one <a href="/register">here</a></span>
         </div>
       </form>
     </div>
-    <div th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="alert rounded">
-    </div>
+  </div>
+  <div th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="alert rounded mt-3">
   </div>
 </div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
