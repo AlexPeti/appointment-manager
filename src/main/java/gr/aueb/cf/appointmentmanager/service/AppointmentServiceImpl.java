@@ -42,6 +42,20 @@ public class AppointmentServiceImpl implements IAppointmentService {
         this.modelMapper = modelMapper;
     }
 
+    /**
+     * Helper method used inside the "createAppointment" method for creating the date and time for the new appointment.
+     * Converts the provided year, month, day, hour, and minute into a LocalDateTime object and validates if it falls within the office hours.
+     * This method helps to reduce the size and complexity of the "createAppointment" method by extracting the logic for creating and validating
+     * the appointment date and time.
+     *
+     * @param year   the year of the appointment
+     * @param month  the month of the appointment
+     * @param day    the day of the appointment
+     * @param hour   the hour of the appointment
+     * @param minute the minute of the appointment
+     * @return the LocalDateTime object representing the appointment date and time
+     * @throws InvalidAppointmentException if the appointment time is outside of the office hours or if the hour value is invalid
+     */
     private LocalDateTime getLocalDateTimeAndWorkingHours(int year, int month, int day, int hour, int minute) throws InvalidAppointmentException {
         LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute);
 
@@ -59,6 +73,19 @@ public class AppointmentServiceImpl implements IAppointmentService {
         return dateTime;
     }
 
+    /**
+     * Helper method used inside the "createAppointment" method for creating a new appointment.
+     * Creates a new appointment for the specified doctor, patient, and date and time.
+     * Checks for any existing appointments with the same date and time before booking.
+     * This method helps to reduce the size and complexity of the "createAppointment" method by
+     * extracting the logic for creating a new appointment and checking for conflicts.
+     *
+     * @param doctor   the doctor for the appointment
+     * @param patient  the patient for the appointment
+     * @param dateTime the date and time of the appointment
+     * @return the created appointment
+     * @throws InvalidAppointmentException if the doctor already has an appointment at the same date and time
+     */
     private Appointment createNewAppointment(Doctor doctor, Patient patient, LocalDateTime dateTime) throws InvalidAppointmentException {
         // Check for appointments with the same date and time before booking
         List<Appointment> doctorAppointments = doctor.getAppointments();
@@ -114,8 +141,10 @@ public class AppointmentServiceImpl implements IAppointmentService {
             patient = patientRepository.save(patient);
         }
 
+        // Construct the date and time of the appointment by using a helper method that handles all logic and checks
         LocalDateTime dateTime = getLocalDateTimeAndWorkingHours(year,month,day,hour,minute);
 
+        // Construct and create the new appointment by using a helper method that handles all logic and checks
         return createNewAppointment(doctor, patient, dateTime);
     }
 

@@ -28,7 +28,9 @@ public class UserServiceImpl implements IUserService {
     @Transactional
     @Override
     public User registerUser(UserDTO userToRegister) {
+        // Map the UserDTO to a User entity
         User user = modelMapper.map(userToRegister, User.class);
+        // Encode the user's password
         user.setPassword(passwordEncoder.encode(userToRegister.getPassword()));
         return userRepository.save(user);
     }
