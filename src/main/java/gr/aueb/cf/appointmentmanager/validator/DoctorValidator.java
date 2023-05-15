@@ -8,6 +8,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * Validator used to validate DoctorDTO objects.
+ * It checks the length and format of the first name and last name of the doctor.
+ */
 @Component
 public class DoctorValidator implements Validator {
 

@@ -9,6 +9,11 @@ import org.springframework.validation.ValidationUtils;
 
 import org.springframework.validation.Validator;
 
+/**
+ * Validator used to validate PatientDTO objects.
+ * It checks the length and format of the first name, last name,
+ * phone number, and SSN of the patient.
+ */
 @Component
 public class PatientValidator implements Validator {
 

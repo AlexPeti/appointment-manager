@@ -10,6 +10,11 @@ import org.springframework.validation.Validator;
 
 import java.util.Objects;
 
+/**
+ * Validator used to validate userDTO objects before registration.
+ * Checks if the username and password meet length requirements and
+ * if the username is not already taken.
+ */
 @Component
 public class UserValidator implements Validator {
 
@@ -20,11 +25,23 @@ public class UserValidator implements Validator {
         this.userService = userService;
     }
 
+    /**
+     * Checks if the class is supported by this validator.
+     *
+     * @param aClass the class to be checked
+     * @return true if the class is supported, false otherwise
+     */
     @Override
     public boolean supports(Class<?> aClass) {
         return UserDTO.class.equals(aClass);
     }
 
+    /**
+     * Validates the target object.
+     *
+     * @param target the object to be validated
+     * @param errors errors object to be used to report validation errors
+     */
     @Override
     public void validate(Object target, Errors errors) {
         UserDTO userToRegister = (UserDTO) target;
