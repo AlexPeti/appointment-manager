@@ -83,7 +83,4 @@ public class DashboardController {
         doctorService.deleteDoctor(doctorId);
         return "redirect:/dashboard";
     }
-
-
-
 }
