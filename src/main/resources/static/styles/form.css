@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+.custom-input {
+    width: 190px;
+}
+
+.custom-date-time {
+    display: flex;
+    align-items: center;
+}
+
+.custom-date-time input {
+    width: 60px;
+    margin-right: 5px;
+}
+
+.form-group label {
+    display: block;
+    text-align: left;
+}
+
+.container {
+    margin-top: 50px;
+}
