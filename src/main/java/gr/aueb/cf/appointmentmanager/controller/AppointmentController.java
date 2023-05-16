@@ -141,7 +141,7 @@ public class AppointmentController {
         String message = "Updated appointment for patient " + appointment.getPatient().getFirstname() + " " +
                 appointment.getPatient().getLastname() + " with Dr. " + appointment.getDoctor().getFirstname() + " "
                 + appointment.getDoctor().getLastname() + ". The new date and time is " + appointment.getAppointmentDateTime()
-                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ".";
 
         model.addAttribute("message", message);
 
