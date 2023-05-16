@@ -60,6 +60,14 @@ public interface IAppointmentService {
     void deleteAppointment(String firstname, String lastname) throws EntityNotFoundException;
 
     /**
+     * Delete an appointment by id.
+     *
+     * @param id the appointment id
+     * @throws EntityNotFoundException if the appointment with the specified id is not found
+     */
+    void deleteAppointmentById(Long id) throws EntityNotFoundException;
+
+    /**
      * Get an appointment by ID.
      *
      * @param id the ID of the appointment

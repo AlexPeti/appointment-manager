@@ -172,6 +172,17 @@ public class AppointmentServiceImpl implements IAppointmentService {
         if (appointment == null) {
             throw new EntityNotFoundException(Appointment.class,0L);
         }
+
+        appointmentRepository.delete(appointment);
+    }
+
+    public void deleteAppointmentById(Long id) throws EntityNotFoundException {
+        Appointment appointment = appointmentRepository.getAppointmentById(id);
+
+        if (appointment == null) {
+            throw new EntityNotFoundException(Appointment.class, 0L);
+        }
+
         appointmentRepository.delete(appointment);
     }
 

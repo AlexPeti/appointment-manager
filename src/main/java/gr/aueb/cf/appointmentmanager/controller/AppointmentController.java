@@ -141,7 +141,7 @@ public class AppointmentController {
         String message = "Updated appointment for patient " + appointment.getPatient().getFirstname() + " " +
                 appointment.getPatient().getLastname() + " with Dr. " + appointment.getDoctor().getFirstname() + " "
                 + appointment.getDoctor().getLastname() + ". The new date and time is " + appointment.getAppointmentDateTime()
-                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ".";
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
         model.addAttribute("message", message);
 
@@ -149,34 +149,18 @@ public class AppointmentController {
     }
 
     /**
-     * Displays the appointment deletion form for the specified doctor.
-     *
-     * @param doctorId The ID of the doctor to display the form for
-     * @param model The model to be used for rendering the view
-     * @throws EntityNotFoundException if the doctor with the given ID does not exist
-     * @return A string representing the name of the view to display
-     */
-    @GetMapping("/delete")
-    public String showDeleteForm(@RequestParam("doctorId") Long doctorId, Model model) throws EntityNotFoundException {
-        model.addAttribute("appointment", appointmentService.getAppointmentsByDoctor(doctorId));
-        return "appointments";
-    }
-
-    /**
      * Deletes the appointment for the specified patient.
      *
-     * @param firstname The first name of the patient whose appointment to delete
-     * @param lastname The last name of the patient whose appointment to delete
+     * @param appointmentId the id of the appointment to delete
+     * @param doctorId the id of the doctor associated with the appointment
      * @throws EntityNotFoundException if the appointment for the given patient does not exist
-     * @return A redirect to the main page if the appointment is successfully deleted
+     * @return A redirect to the schedule page for the corresponding doctor if the appointment is successfully deleted
      */
     @PostMapping("/delete")
-    public String deleteAppointment(@RequestParam("firstname") String firstname,@RequestParam("lastname") String lastname)
-            throws EntityNotFoundException {
-
-        appointmentService.deleteAppointment(firstname, lastname);
-
-        return "redirect:/";
+    public String deleteAppointment(@RequestParam("appointmentId") Long appointmentId,@RequestParam("doctorId") Long doctorId) throws EntityNotFoundException {
+        appointmentService.deleteAppointmentById(appointmentId);
+        // We take the doctor's id from thymeleaf, so we can use it to display his schedule page after deleting an appointment
+        return "redirect:/appointment/schedule?doctorId=" + doctorId;
     }
 
     /**
